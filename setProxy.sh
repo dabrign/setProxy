@@ -1,6 +1,7 @@
 #!/bin/bash
-
 HTTP_PROXY="export http_proxy"
+HTTPS_PROXY="export https_proxy"
+FTP_PROXY="export ftp_proxy"
 APTCONF="/etc/apt/apt.conf"
 if grep -Fxq "$HTTP_PROXY" ~/.bashrc
 then
@@ -10,22 +11,33 @@ then
 	then
 		sed -i '/no_proxy/d' ~/.bashrc
 		sed -i '/http_proxy/d' ~/.bashrc
+		sed -i '/https_proxy/d' ~/.bashrc
+		sed -i '/ftp_proxy/d' ~/.bashrc
+		sudo sed -i '/Acquire::http::Proxy/d' $APTCONF
+		gsettings set org.gnome.system.proxy mode 'none'
 	else
     	echo "ok, no exception then!"
 	fi
 else
+	gsettings set org.gnome.system.proxy mode 'manual'
     echo "you can set it now"
-	read -r -p "Set your proxy in form user:pwd@proxy:port" response
+	read -r -p "Set your proxy in form http://user:pwd@proxy:port : " response
 	echo "http_proxy=$response" >> ~/.bashrc
+	echo "https_proxy=$response" >> ~/.bashrc
+	echo "ftp_proxy=$response" >> ~/.bashrc
 	echo "export http_proxy" >> ~/.bashrc
+	echo "export https_proxy" >> ~/.bashrc
+	echo "export ftp_proxy" >> ~/.bashrc
 	if [ -f $APTCONF ];
 	then
-		echo "appending, already exists"
+		echo "appending" 
 	else
 		echo "creating..."
 		sudo touch $APTCONF
-		sudo sh -c 'echo "Acquire::http::Proxy \"$response\";" >> $APTCONF'
+		
 	fi
+	sudo sh -c " echo 'Acquire::http::Proxy \"$response\" ;' >> $APTCONF"
+	
 	read -r -p "do you wanna add exceptions? [y/n]" response
 	if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]]
 	then
