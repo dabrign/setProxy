@@ -17,3 +17,6 @@ File http-proxy.conf in /etc/systemd/system/docker.service.d with:
 
 [Service]
 Environment="HTTP_PROXY=  "
+
+* maven
+.m2/settings
