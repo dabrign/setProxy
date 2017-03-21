@@ -5,6 +5,9 @@ simple bash script to set and remove proxy from the command line
 
 * Bash
 * Apt
+in /etc/apt/apt.conf
+Acquire::http::Proxy "http://{{user}}:{{pasword}}@{{proxyurl:port}}" ;
+
 * Gnome
 
 **Other needed services**
