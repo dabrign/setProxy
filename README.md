@@ -14,6 +14,7 @@ Acquire::http::Proxy "http://{{user}}:{{pasword}}@{{proxyurl:port}}" ;
 
 * NPM
 * PIP & CONDA
+Env var works for pip
 * GIT
 * docker
 File http-proxy.conf in /etc/systemd/system/docker.service.d with:
