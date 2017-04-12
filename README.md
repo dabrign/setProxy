@@ -13,6 +13,10 @@ Acquire::http::Proxy "http://{{user}}:{{pasword}}@{{proxyurl:port}}" ;
 **Other needed services**
 
 * NPM
+    npm config set proxy http://proxy.company.com:8080
+    npm config set https-proxy http://proxy.company.com:8080
+    npm config delete proxy
+    npm config delete https-proxy
 * PIP & CONDA
 Env var works for pip
 * GIT
