@@ -20,6 +20,11 @@ Acquire::http::Proxy "http://{{user}}:{{pasword}}@{{proxyurl:port}}" ;
 * PIP & CONDA
 Env var works for pip
 * GIT
+git config --global http.proxy {{url}}
+git config --global https.proxy {{url}}
+git config --global --unset https.proxy
+git config --global --unset http.proxy
+
 * docker
 File http-proxy.conf in /etc/systemd/system/docker.service.d with:
 
